@@ -61,19 +61,19 @@ class Chat {
         if ('users' in data) {
             this.users = new Collection()
             data.users.forEach((user) => {
-                this.users.set(user.pk, this.client._patchOrCreateUser(user.pk, user))
+                this.users.set(user.pk.toString(), this.client._patchOrCreateUser(user.pk, user))
             })
         }
         if ('left_users' in data) {
             this.leftUsers = new Collection()
             data.left_users.forEach((user) => {
-                this.leftUsers.set(user.pk, this.client._patchOrCreateUser(user.pk, user))
+                this.leftUsers.set(user.pk.toString(), this.client._patchOrCreateUser(user.pk, user))
             })
         }
         if ('items' in data) {
             this.messages = new Collection()
             data.items.forEach((item) => {
-                this.messages.set(item.item_id, new Message(this.client, this.id, item))
+                this.messages.set(item.item_id.toString(), new Message(this.client, this.id, item))
             })
         }
 
@@ -207,7 +207,7 @@ class Chat {
      * @example
      * chat.sendMessage('hey!');
      */
-    sendMessage (content, options) {
+    sendMessage (content) {
         return new Promise((resolve) => {
             const urls = getUrls(content)
             const promise = urls.size >= 1 ? this.threadEntity.broadcastText(content, Array.from(urls)) : this.threadEntity.broadcastText(content)

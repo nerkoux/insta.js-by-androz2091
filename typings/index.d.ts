@@ -24,7 +24,7 @@ declare module '@androz2091/insta.js' {
         public fetchChat(chatID: string, force: boolean): Promise<Chat>;
         public fetchUser(query: string, force: boolean): Promise<User>;
         public logout(): void;
-        public login(username: string, password: string, state: object): void;
+        public login(username: string, password: string, state?: object): void;
         public toJSON(): ClientJSON;
 
         public on<K extends keyof ClientEvents>(event: K, listener: (...args: ClientEvents[K]) => void): this;
@@ -95,9 +95,9 @@ declare module '@androz2091/insta.js' {
         public markMessageSeen(messageID: string): void;
         public deleteMessage(messageID: string): void;
         public _keepTypingAlive(): void;
-        public startTyping(options: StartTypingOptions): Promise<void>;
+        public startTyping(options?: StartTypingOptions): Promise<void>;
         public stopTyping(): Promise<void>;
-        public sendMessage(content: string, options: any): Promise<Message>;
+        public sendMessage(content: string): Promise<Message>;
         public sendVoice(buffer: Buffer): Promise<Message>;
         public sendPhoto(attachment: string | Buffer | Attachment): Promise<Message>;
         public toJSON(): ChatJSON;
